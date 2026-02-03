@@ -58,6 +58,8 @@ class PlayerService extends ChangeNotifier {
   PlayerService._();
 
   static final instance = PlayerService._();
+  
+  static int debugPlayerCount = 0; // DEBUG ONLY
 
   final _api = PhpApiClient();
   AudioPlayer? _player;
@@ -191,6 +193,7 @@ class PlayerService extends ChangeNotifier {
   void _ensurePlayer() {
     if (_player != null) return;
     final p = AudioPlayer();
+    debugPlayerCount++;
     _player = p;
     _subs.add(
       p.positionStream.listen((pos) {
